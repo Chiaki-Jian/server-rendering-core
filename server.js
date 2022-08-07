@@ -3,9 +3,14 @@ const Vue = require('vue')
 const fs = require('fs')
 const path = require('path')
 
+// meta等信息
+const metaConfigs = require('./metaConfig')
+
 const VueServerRenderer = require('vue-server-renderer')
 
 const server = require('express')()
+
+const context = metaConfigs()
 
 server.get('*', (req, res) => {
   const app = new Vue({
@@ -20,12 +25,12 @@ server.get('*', (req, res) => {
   })
 
   const template = fs.readFileSync(path.resolve(__dirname, 'index.template.html'), 'utf-8')
-  console.log(template);
+  // console.log(template);
   const renderer = VueServerRenderer.createRenderer(
     { template }
   )
 
-  renderer.renderToString(app, (err, html) => {
+  renderer.renderToString(app, context, (err, html) => {
     // console.log(html);
     if (err) {
       res.status(500).end('Internal Server Error')
