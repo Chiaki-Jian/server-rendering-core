@@ -1,0 +1,24 @@
+{
+  "name": "server-rendering-core",
+  "version": "1.0.0",
+  "description": "实现服务端渲染核心功能",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chiaki-Jian/server-rendering-core.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chiaki-Jian/server-rendering-core/issues"
+  },
+  "homepage": "https://github.com/Chiaki-Jian/server-rendering-core#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "vue": "^2.6.12",
+    "vue-server-renderer": "^2.6.12"
+  }
+}
