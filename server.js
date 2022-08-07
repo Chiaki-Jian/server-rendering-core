@@ -1,6 +1,9 @@
 const Vue = require('vue')
 
-const VueServerRenderer = require('vue-server-renderer').createRenderer()
+const fs = require('fs')
+const path = require('path')
+
+const VueServerRenderer = require('vue-server-renderer')
 
 const server = require('express')()
 
@@ -15,26 +18,20 @@ server.get('*', (req, res) => {
         <p>current URL is {{ url }}</p>
       </div>`
   })
-  const renderer = VueServerRenderer.createRenderer()
+
+  const template = fs.readFileSync(path.resolve(__dirname, 'index.template.html'), 'utf-8')
+  console.log(template);
+  const renderer = VueServerRenderer.createRenderer(
+    { template }
+  )
+
   renderer.renderToString(app, (err, html) => {
+    // console.log(html);
     if (err) {
       res.status(500).end('Internal Server Error')
       return
     }
-    res.end(
-      `<!DOCTYPE html>
-      <html lang="en">
-
-      <head>
-        <title>SSR</title>
-      </head>
-
-      <body>
-        ${html}
-      </body>
-
-      </html>`
-    )
+    res.end(html)
   })
 })
 
